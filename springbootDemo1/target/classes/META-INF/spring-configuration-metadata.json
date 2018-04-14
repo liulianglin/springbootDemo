@@ -1,0 +1,22 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.ydxt.lll.config.ConfigBean",
+      "name": "com.test1",
+      "type": "com.ydxt.lll.config.ConfigBean"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.ydxt.lll.config.ConfigBean",
+      "name": "com.test1.name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.ydxt.lll.config.ConfigBean",
+      "name": "com.test1.want",
+      "type": "java.lang.String"
+    }
+  ]
+}

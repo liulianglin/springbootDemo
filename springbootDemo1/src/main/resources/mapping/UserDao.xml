@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ydxt.lll.mapper.UserDao" >
+  <resultMap id="BaseResultMap" type="com.ydxt.lll.domain.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, age
+  </sql>
+
+  <select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteUser" parameterType="com.ydxt.lll.domain.User" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="addUser" parameterType="com.ydxt.lll.domain.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateUser" parameterType="com.ydxt.lll.domain.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- 使用别名的目的是让查询结果属性名称和实体bean的属性名对应，要不让绑定不上数据。要么就写resultMap这个大家自己搞了 -->
+  <select id="getUsersByPage" resultType="com.ydxt.lll.domain.User">
+    select    <include refid="Base_Column_List" />
+      from user
+    limit #{startIndex},#{pageSize};
+  </select>
+</mapper>
